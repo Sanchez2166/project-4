@@ -9,12 +9,10 @@ let controller = function() {
     let $new_comment;
 
     if ($(".comment-input input").val() !== "") {
-      //$(".comments").html(localStorage.getItem("toDoList"));
       $new_comment = $("<p>").text($(".comment-input input").val());
       //$new_comment.hide();
       $(".comments").append($new_comment);
       //$new_comment.fadeIn();
-      //localStorage.setItem("toDoList", $(".comments").html());
       $(".comment-input input").val("");
       localStorage.setItem("toDoList", $(".comments").html());
     }
@@ -31,4 +29,14 @@ let controller = function() {
   });
 };
 
-$(document).ready(controller);
+let deleteHandler = () => {
+  console.log("Dh");
+  localStorage.removeItem("toDoList");
+  window.location.reload();
+};
+
+$(document).ready(() => {
+  let buttonElem = document.querySelectorAll("button")[1];
+  buttonElem.addEventListener("click", deleteHandler);
+  controller();
+});
